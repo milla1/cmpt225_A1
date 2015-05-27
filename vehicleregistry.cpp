@@ -1,13 +1,9 @@
 // File:        vehicleregistry.cpp
-// Author:      Jason Park
+// Author:      Jason Park 301001797
 // Date:        2015-05-24
 // Description: Implementation of a VehicleRegistry class to be used for CMPT 225 assignment #1
 
 #include "vehicleregistry.h"
-
-///////////////////////////////
-// Constructors / Destructor //
-///////////////////////////////
 
 // Default constructor
 // Creates an empty VehicleRegistry with default array size (4)
@@ -18,31 +14,33 @@ VehicleRegistry::VehicleRegistry()
 	vehicles = new Vehicle[maxsize];
 }
 
-
 // Copy constructor
 // Creates a new VehicleRegistry object,
-// performs a deep copy of the vr parameter's fields
+//   performs a deep copy of the vr parameter's fields using CopyArray private member function
+VehicleRegistry::VehicleRegistry(const VehicleRegistry& vr)
+{
+	VehicleRegistry temp;
+	temp.CopyArray(vr);
+}
+
+//performs a deep copy of dynamic array memory elements
 void VehicleRegistry::CopyArray(const VehicleRegistry& vr)
 {
+	numvehicles = 0;
 	maxsize = 3;
 	vehicles = new Vehicle[maxsize];
 	for (int i = 0; i < maxsize; i++)
 	{
-		vehicles[i] = vr.vehicles[i]; //performs a deep copy of dynamic array memory elements
+		vehicles[i] = vr.vehicles[i]; 
 		numvehicles++;
 	}
 }
 
 // Destructor
-// Releases all memory allocated to private pointer members
 VehicleRegistry::~VehicleRegistry()
 {
 	delete[] vehicles;
 }
-
-//////////////////////////
-// Mutators / Accessors //
-//////////////////////////
 
 // Insert - performs a set insertion with the vehicle registry
 // Inserts vehicle and returns true if vehicle is not already in the registry
@@ -107,6 +105,7 @@ bool VehicleRegistry::Remove(Vehicle vehicle)
 	if (found != -1) //if the vehicle is found then remove
 	{
 		//removes from the index and adjusts it accordingly
+		return true;
 	}
 	else
 	{
@@ -150,16 +149,24 @@ int VehicleRegistry::Count() const
 // If both registries contain entries with identical license plate,
 //   the parameters for the vehicle from the calling registry will take precedence.
 // POST: union contains vehicles of this and vr, with no duplicate license plates.
-VehicleRegistry Join(const VehicleRegistry& vr) const;
+VehicleRegistry Join(const VehicleRegistry& vr)
+{
+	return vr;
+}
 
 // Returns the set intersection of this and vr
 // If both registries contain entries with identical license plate,
 //   the parameters for the vehicle from the calling registry will take precedence.
 // POST: intersection contains vehicles in both this and vr.
-VehicleRegistry Common(const VehicleRegistry& vr) const;
-
+VehicleRegistry Common(const VehicleRegistry& vr)
+{
+	return vr;
+}
 // Returns the set difference of this and vr
 // Vehicles in both registries must have a full set of matching parameters
 //   for a vehicle to be removed in the split.
 // POST: difference contains vehicles in this but not also in vr
-VehicleRegistry Split(const VehicleRegistry& vr) const;
+VehicleRegistry Split(const VehicleRegistry& vr)
+{
+	return vr;
+}
